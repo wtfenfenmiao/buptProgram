@@ -6,6 +6,7 @@
 #include<map>
 #include<queue>
 #include<iostream>
+#include<fstream>
 #include<time.h>
 
 
@@ -32,7 +33,7 @@ struct simpleTrie {
 	simpleTrie();        //构造函数
 	void Insert(std::string i);       //插入节点,构成转向函数指针
 	//void Export();       //导出这棵树成文件，不一定用得到，可能测试用
-	void Find(std::string i);         //查找函数,查找此串中模式出现的位置，还有次数
+	void Find(std::string & i,int line,std::ofstream & ofile);         //查找函数,查找此串中模式出现的位置，还有次数
 	void ergodicFail();       //遍历函数，构成失效函数指针
 	void Ergodic();     //遍历函数，用来测试这棵树的构建结果
 	void destroy();    //把内存释放掉

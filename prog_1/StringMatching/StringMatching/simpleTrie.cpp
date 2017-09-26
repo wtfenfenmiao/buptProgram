@@ -147,7 +147,7 @@ void simpleTrie::Ergodic() {       //遍历，打印结果，看看对不对
 	}
 }
 
-void simpleTrie::Find(string str) {
+void simpleTrie::Find(string & str,int line,ofstream & ofile) {    //line是查找主串的第几行，str是此行的字符串
 	int i = 0;
 	bool flag = true;
 	simpleTrieNode* temp = root;
@@ -159,7 +159,8 @@ void simpleTrie::Find(string str) {
 			for (auto j : temp->output)
 			{
 				//cout << j << endl;
-				cout << j << ":" << i - j.length() << endl;
+				//cout << j << ":" << i - j.length() << endl;
+				ofile << j << ":" <<line<<"  "<< i - j.length() << endl;
 			}
 		}
 		string strTemp;
@@ -200,7 +201,9 @@ void simpleTrie::Find(string str) {
 			for (auto j : temp->output)
 			{
 				//cout << j << endl;
-				cout << j << ":" << i - j.length() << endl;
+				//cout << j << ":" << i - j.length() << endl;
+				ofile << j << ":" << line << "  " << i - j.length() << endl;
+
 			}
 		}
 		temp = temp->fail;

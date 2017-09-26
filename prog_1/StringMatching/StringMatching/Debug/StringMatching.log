@@ -1,8 +1,3 @@
-﻿  simpleTrie.cpp
-f:\buptprogram\prog_1\stringmatching\stringmatching\simpletrie.cpp(32): warning C4018: “<”: 有符号/无符号不匹配
-f:\buptprogram\prog_1\stringmatching\stringmatching\simpletrie.cpp(52): warning C4018: “<”: 有符号/无符号不匹配
-f:\buptprogram\prog_1\stringmatching\stringmatching\simpletrie.cpp(154): warning C4018: “<”: 有符号/无符号不匹配
-  main.cpp
-  正在生成代码...
-  StringMatching.vcxproj -> F:\buptProgram\prog_1\StringMatching\Debug\StringMatching.exe
-  StringMatching.vcxproj -> F:\buptProgram\prog_1\StringMatching\Debug\StringMatching.pdb (Partial PDB)
+﻿  main.cpp
+  StringMatching.vcxproj -> F:\buptProg\prog_1\StringMatching\Debug\StringMatching.exe
+  StringMatching.vcxproj -> F:\buptProg\prog_1\StringMatching\Debug\StringMatching.pdb (Partial PDB)
