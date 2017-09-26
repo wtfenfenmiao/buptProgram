@@ -6,11 +6,12 @@
 #include<map>
 #include<queue>
 #include<iostream>
+#include<time.h>
 
 
 
 struct simpleTrieNode {                       //可能用union，但是还不会用   //C里用typedef，否则下边声明个新变量要带着struct关键字，很麻烦，但是C++里就不用，直接struct就行，下面就不用带struct关键字了
-	std::map<char, simpleTrieNode*> g;    //转向函数指针
+	std::map<std::string, simpleTrieNode*> g;    //转向函数指针
 	simpleTrieNode* fail;//失效函数指针
 	std::vector<std::string> output;
 	int No;//最后应该删了的，一个编号
@@ -34,6 +35,7 @@ struct simpleTrie {
 	void Find(std::string i);         //查找函数,查找此串中模式出现的位置，还有次数
 	void ergodicFail();       //遍历函数，构成失效函数指针
 	void Ergodic();     //遍历函数，用来测试这棵树的构建结果
+	void destroy();    //把内存释放掉
 }; 
 
 
