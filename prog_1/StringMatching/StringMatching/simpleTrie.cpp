@@ -148,12 +148,12 @@ void simpleTrie::Ergodic() {       //±éÀú£¬´òÓ¡½á¹û£¬¿´¿´¶Ô²»¶Ô
 }
 
 void simpleTrie::Find(string & str,int line,ofstream & ofile) {    //lineÊÇ²éÕÒÖ÷´®µÄµÚ¼¸ĞĞ£¬strÊÇ´ËĞĞµÄ×Ö·û´®
-	int i = 0;
-	bool flag = true;
+	int i = 0;	
 	simpleTrieNode* temp = root;
 	while(i<str.length())
 	{
-		//cout << temp->No << endl;
+		bool flag = true;           //ÕâÒ»ĞĞ·ÅÍâÃæÁËÃ»¿´³öÀ´£¬°×ÅÜÁËÈı¸öĞ¡Ê±£¬ÏëÂîÈË
+		//cout << "±àºÅ"<<temp->No << endl;
 		if (!temp->output.empty())    //Êä³ö´Ë½ÚµãµÄoutput
 		{
 			for (auto j : temp->output)
@@ -173,14 +173,14 @@ void simpleTrie::Find(string & str,int line,ofstream & ofile) {    //lineÊÇ²éÕÒÖ
 			strTemp = str[i];
 			flag = false;
 		}
-		//cout << "find:" << strTemp << endl;
+		//cout << "find:" << strTemp <<" "<<i<< endl;
 		map<string, simpleTrieNode*>::iterator iter;
 		iter = temp->g.find(strTemp);
 		if (iter == temp->g.end())
 		{
 			if (temp == root)
 			{
-				i = flag ? (i + 2): i + 1;
+				i = flag ? (i + 2): (i + 1);
 			}
 			else
 			{
@@ -190,7 +190,7 @@ void simpleTrie::Find(string & str,int line,ofstream & ofile) {    //lineÊÇ²éÕÒÖ
 		else
 		{
 			temp = iter->second;
-			i = flag ? (i + 2) : i + 1;
+			i = flag ? (i + 2) : (i + 1);
 		}
 	}
 	while (temp != root)    //²»¼ÓÕâ¸ö×îºóÆ¥ÅäµÄ»áÊä³ö²»À´£¬±ÈÈçnihao£¬hao£¬hs£¬hsrµÄÄ£Ê½´®Æ¥Åäsdmfhsgnshejfgnihaofhsrnihao£¬×îºóµÄnihaoºÍhao»áÊä²»³öÀ´

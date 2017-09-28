@@ -53,7 +53,7 @@ void main(int argc,char* argv[]) {
 		}
 
 		tree->ergodicFail();
-		//tree->Ergodic();
+		//tree->Ergodic();    这个是用来打印结果查bug的
 		cout << "tree build finish!" << endl;
 	}
 	else
@@ -76,6 +76,7 @@ void main(int argc,char* argv[]) {
 			int cot = 0;
 			while (getline(strFile, temp))
 			{
+				cout <<"查询："<<cot<<"      " <<temp << endl;
 				tree->Find(temp, cot++, resultFile);
 			}
 		}
