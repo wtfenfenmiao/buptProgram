@@ -1,0 +1,90 @@
+
+一 环境
+官方下载地址：http://libevent.org/
+版本：libevent-2.0.22-stable
+
+二 编译静态库
+1 解压
+把上面下载到libevent-2.0.22-stable.tar.gz解压，得到libevent-2.0.22-stable文件夹
+
+
+2 添加宏定义
+在libevent-2.0.22-stable文件夹下找到下面三个文件：
+event_iocp.c
+evthread_win32.c
+listener.c
+打开并在开头加上宏定义：
+#define _WIN32_WINNT 0x0500
+
+因为event_iocp.c里用到<winbase.h>头文件里的函数定义,如InitializeCriticalSectionAndSpinCount,
+<windows.h>会包含<winbase.h>,而<winbase.h>这个头文件里这个函数是这样定义的:
+#if (_WIN32_WINNT >= 0x0403)
+WINBASEAPI
+BOOL WINAPI
+InitializeCriticalSectionAndSpinCount(
+ __out LPCRITICAL_SECTION lpCriticalSection,
+ __in ?DWORD dwSpinCount
+ );
+
+WINBASEAPI
+DWORD
+WINAPI
+SetCriticalSectionSpinCount(
+ __inout LPCRITICAL_SECTION lpCriticalSection,
+ __in ? ?DWORD dwSpinCount
+ );
+ #endif
+
+所以要定义_WIN32_WINNT这个宏,而且值要大于0x0403。
+如果没有这个宏或不满足条件,编译器会假定这个函数没有定义,
+等到链接时再寻找它,这样这个函数的符号就假定返回一个int,
+而显示标准库文件里这个函数不是返回int,所以在链接时就会找不到这个函数符号。
+
+
+注意：宏一定要定义在#include <windows.h>之前,不然还是没有作用。
+
+
+3 编译
+使用vs的命令行工具，cd到libevent-2.0.22-stable目录，执行脚本makefile.nmake，命令如下：
+nmake /f Makefile.nmake
+这样就会生成三个静态库:
+libevent_core.lib
+libevent_extras.lib
+libevent.lib       （这里我的报错了，但是也生成了这三个东西，后面测试也没错，应该是这个报错没有什么影响）
+
+三 使用示例
+1 新建项目
+新建一个控制台“空”项目
+?
+2 拷贝文件
+2.1 在项目目录下建一个libevent文件夹                                  （和sln同级的位置）
+2.2 在libevent中新建一个lib文件夹，将上面三个lib文件copy到该目录下。
+2.3 在libevent中再新建一个include文件夹，
+将libevent-2.0.22-stable\include下的文件和文件夹copy到该目录下，
+将libevent-2.0.22-stable\WIN32-Code下的文件和文件夹copy到该目录下，
+2个event2目录下的文件合并一起。
+
+3 项目配置 （这些在项目->属性 中都能看到）
+VC++目录：                               （这个目录，直接用绝对路径就行，不用管那些$什么的）
+包含目录，添加刚刚新建的include目录
+库目录，添加刚刚的lib目录;
+
+
+C/C++：
+代码生成-->运行库：
+Debug模式下选：多线程调试 (/MTd)，
+Release下模式下选：多线程 (/MT)
+
+
+连接器：
+输入->附加依赖项：
+ws2_32.lib
+wsock32.lib
+libevent.lib
+libevent_core.lib
+libevent_extras.lib
+另外两个库ws2_32.lib和wsock32.lib是用来编译Windows网络相关的程序库。
+
+4 测试代码
+4.1 新建一个main.c文件
+4.2 从libevent-2.0.22-stable\sample目录下拷贝time-test.c文件中的代码到main中

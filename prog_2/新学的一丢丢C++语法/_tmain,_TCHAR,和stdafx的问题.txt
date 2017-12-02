@@ -1,0 +1,14 @@
+用过C的人都知道每一个C的程序都会有一个main()，但有时看别人写的程序发现主函数不是int main(),而是int _tmain()，而且头文件也不是<iostream.h>而是<stdafx.h>,会困惑吧？
+
+一起来看看他们有什么关系吧
+
+  首先，这个_tmain()是为了支持unicode所使用的main一个别名而已，既然是别名，应该有宏定义过的，在哪里定义的呢？就在那个让你困惑的<stdafx.h>里，有这么两行
+
+#include <stdio.h>
+#include <tchar.h>
+
+我们可以在头文件<tchar.h>里找到_tmain的宏定义     
+
+#define _tmain      main
+
+所以，经过预编译以后， _tmain就变成main了，这下明白了吧
